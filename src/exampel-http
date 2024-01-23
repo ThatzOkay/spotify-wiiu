@@ -1,0 +1,15 @@
+
+int web_server_thread()
+{
+    if (WHBProcIsRunning())
+    {
+        HttpServer s;
+
+        s.when("/")
+            ->requested([](const HttpRequest &) -> HttpResponse
+                        { return {200, "", "Hello World!"}; });
+
+        s.startListening(8080);
+    }
+    return 0;
+}

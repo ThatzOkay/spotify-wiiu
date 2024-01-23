@@ -1,0 +1,17 @@
+{
+    "id": "spotify",
+    "type": "application",
+    "value": {
+        "author": "ThatzOkay",
+        "description": "Spotify client for WiiU",
+        "language": "c++",
+        "sources": [ "gui" ]
+    },
+    "lang.cpp": {
+        "lib": [ "SDL2", "SDL2_image", "SDL2_ttf", "SDL2_gfx", "z", "curl" ],
+        "static-lib": [ "chesto" ],
+        "cpp-standard": "gnu++20",
+        "cxxflags": [ "-Wno-narrowing", "-DPC" ]
+    }
+}
+

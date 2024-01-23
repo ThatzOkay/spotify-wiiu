@@ -1,15 +1,15 @@
 [submodule "libs/restclient-cpp"]
 	path = libs/restclient-cpp
-	url = https://github.com/mrtazz/restclient-cpp.git
+	url = https://github.com/ThatzOkay/restclient-cpp-wiiu.git
 [submodule "libs/jsoncpp"]
 	path = libs/jsoncpp
-	url = https://github.com/open-source-parsers/jsoncpp.git
+	url = https://github.com/ThatzOkay/jsoncpp-wiiu.git
 [submodule "libs/chesto"]
 	path = libs/chesto
 	url = https://github.com/fortheusers/chesto.git
 [submodule "libs/tinyhttp"]
 	path = libs/tinyhttp
-	url = https://github.com/kissbeni/tinyhttp.git
+	url = https://github.com/ThatzOkay/tinyhttp-wiiu.git
 [submodule "libs/librpxloader"]
 	path = libs/librpxloader
 	url = https://github.com/wiiu-env/librpxloader.git

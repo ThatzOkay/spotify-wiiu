@@ -1,0 +1,75 @@
+int rest_thread()
+{
+    while (WHBProcIsRunning())
+    {
+        RestClient::Connection *conn = new RestClient::Connection("https://accounts.spotify.com");
+
+        conn->SetVerifyPeer(false);
+
+        conn->AppendHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        std::string data = "grant_type=client_credentials&client_id=ead8766938fd4184a42d581b48d26fa7&client_secret=e60081673f7b4ea598e54572a039479a";
+
+        RestClient::Response r = conn->post("/api/token", data);
+
+        std::string body = r.body;
+
+        Json::Value root;
+        Json::Reader reader;
+        bool parsingSuccessful = reader.parse(body, root);
+        if (parsingSuccessful)
+        {
+            // Access the parsed JSON data
+            std::string access_token = root["access_token"].asString();
+            int expires_in = root["expires_in"].asInt();
+
+            conn = new RestClient::Connection("https://api.spotify.com/v1");
+
+            conn->SetVerifyPeer(false);
+
+            RestClient::HeaderFields headers;
+            headers["Content-Type"] = "application/json";
+
+            // log access_token
+            WHBLogPrintf("%s\n", access_token.c_str());
+
+            headers["Authorization"] = "Bearer " + access_token;
+
+            conn->SetHeaders(headers);
+
+            RestClient::Response r2 = conn->get("/me");
+
+            std::string body2 = r2.body;
+
+            WHBLogPrintf("%s\n", body2.c_str());
+
+            Json::Value root2;
+            Json::Reader reader2;
+
+            bool parsingSuccessful2 = reader2.parse(body2, root2);
+
+            if (parsingSuccessful2)
+            {
+                std::string display_name = root2["display_name"].asString();
+                WHBLogPrintf("Hello %s!\n", display_name.c_str());
+            }
+            else
+            {
+                WHBLogPrintf("Failed to parse JSON\n");
+            }
+        }
+        else
+        {
+            WHBLogPrintf("Failed to parse JSON\n");
+        }
+
+        WHBLogConsoleDraw();
+        OSSleepTicks(OSMillisecondsToTicks(1000));
+    }
+
+    WHBLogPrintf("Exiting... good bye.\n");
+    RestClient::disable();
+    WHBLogConsoleDraw();
+    OSSleepTicks(OSMillisecondsToTicks(1000));
+    return 0;
+}
