@@ -1,14 +1,18 @@
 #include "MainDisplay.h"
 #include "SetupScreen.h"
 #include "Utils.h"
+#ifdef __WIIU__
 #include <whb/log.h>
+#endif
 
 using namespace std::string_literals; // for ""s
 
 MainDisplay::MainDisplay()
     : testScreen()
 {
+    #ifdef __WIIU__
     WHBLogPrintf("init of MainDisplay");
+    #endif
     super::append(&testScreen);
 }
 

@@ -13,7 +13,7 @@
 SetupScreen::SetupScreen()
     : icon(RAMFS "res/icon.png")
     , title("Spotify", 50 - 25)
-    , setupInscructions((std::string("Please go to ") + getIp() + std::string(" on your computer to set up Spotify.")).c_str(), 40)
+    , setupInscructions((std::string("Please go to ") + getIp() + std::string(":8088 on your computer to set up Spotify.")).c_str(), 40)
     , btnQuit("Quit", SELECT_BUTTON, false, 15)
 {
 

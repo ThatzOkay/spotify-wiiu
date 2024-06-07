@@ -1,9 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Hello, World!</title>
+    <title>Spotify login</title>
 </head>
+
 <body>
-    <h1>Hello, World!</h1>
+    <script>
+
+        const generateRandomString = (length) => {
+            let text = '';
+            const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+            for (let i = 0; i < length; i++) {
+                text += possible.charAt(Math.floor(Math.random() * possible.length));
+            }
+
+            return text;
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const state = generateRandomString(16);
+            const clinetId = 'ead8766938fd4184a42d581b48d26fa7';
+            const redirectUri = window.location.origin + '/callback';
+            const scope = 'user-read-private user-read-email';
+
+            var queryParams = [
+                'response_type=code',
+                'client_id=' + encodeURIComponent(client_id), //TODO as template from c++
+                'scope=' + encodeURIComponent(scope),
+                'redirect_uri=' + encodeURIComponent(redirect_uri), 
+                'state=' + encodeURIComponent(state) //TODO as template from c++
+            ];
+
+            const redirectUrl = 'https://accounts.spotify.com/authorize?' + queryParams.join('&');
+
+            // Redirect the user to the Spotify authorization endpoint
+            window.location.href = redirectUrl;
+        })
+    </script>
 </body>
+
 </html>
